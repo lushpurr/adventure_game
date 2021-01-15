@@ -1,7 +1,7 @@
-package Characters.Warriors;
+package gameobjects.Characters.Warriors;
 
-import Characters.Character;
-import Rooms.Room;
+import gameobjects.Characters.Character;
+import gameobjects.Rooms.Room;
 
 public class Barbarian extends Warrior {
 

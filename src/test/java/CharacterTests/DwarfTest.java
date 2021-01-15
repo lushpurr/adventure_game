@@ -1,13 +1,11 @@
 package CharacterTests;
 
-import Characters.Warriors.Dwarf;
-import Characters.Warriors.Weapon;
-import Characters.Warriors.WeaponType;
-import Rooms.Room;
-import com.sun.beans.WeakCache;
+import gameobjects.Characters.Warriors.Dwarf;
+import gameobjects.Characters.Warriors.Weapon;
+import gameobjects.Characters.Warriors.WeaponType;
+import gameobjects.Rooms.Room;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 
 import static org.junit.Assert.*;
 

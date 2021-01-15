@@ -1,4 +1,4 @@
-package Characters.Warriors;
+package gameobjects.Characters.Warriors;
 
 public class Weapon {
 

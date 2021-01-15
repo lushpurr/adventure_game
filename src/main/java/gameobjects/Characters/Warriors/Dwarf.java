@@ -1,8 +1,6 @@
-package Characters.Warriors;
-import Characters.IInvisible;
-import Rooms.Room;
-
-import java.util.ArrayList;
+package gameobjects.Characters.Warriors;
+import gameobjects.Characters.IInvisible;
+import gameobjects.Rooms.Room;
 
 public class Dwarf extends Warrior implements IInvisible {
 

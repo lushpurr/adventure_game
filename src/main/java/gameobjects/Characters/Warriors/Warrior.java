@@ -1,6 +1,6 @@
-package Characters.Warriors;
-import Characters.Character;
-import Rooms.Room;
+package gameobjects.Characters.Warriors;
+import gameobjects.Characters.Character;
+import gameobjects.Rooms.Room;
 
 import java.util.ArrayList;
 import java.util.Arrays;

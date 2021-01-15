@@ -1,4 +1,4 @@
-package Characters;
+package gameobjects.Characters;
 
 public interface IInvisible {
 

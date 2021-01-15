@@ -1,7 +1,7 @@
 package CharacterTests;
 
-import Characters.Warriors.*;
-import Rooms.Room;
+import gameobjects.Characters.Warriors.*;
+import gameobjects.Rooms.Room;
 import org.junit.Before;
 import org.junit.Test;
 

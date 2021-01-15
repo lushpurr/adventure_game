@@ -1,4 +1,4 @@
-package Characters.Warriors;
+package gameobjects.Characters.Warriors;
 
 public enum WeaponType {
     FIST(1),
