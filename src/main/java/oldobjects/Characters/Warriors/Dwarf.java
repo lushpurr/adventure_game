@@ -1,6 +1,6 @@
-package gameobjects.Characters.Warriors;
-import gameobjects.Characters.IInvisible;
-import gameobjects.Rooms.Room;
+package oldobjects.Characters.Warriors;
+import oldobjects.Characters.IInvisible;
+import oldobjects.Rooms.Room;
 
 public class Dwarf extends Warrior implements IInvisible {
 

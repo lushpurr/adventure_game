@@ -1,7 +1,7 @@
-package gameobjects.Characters;
+package oldobjects.Characters;
 
-import gameobjects.Rooms.Room;
-import gameobjects.Treasure.Treasure;
+import oldobjects.Rooms.Room;
+import oldobjects.Treasure.Treasure;
 
 import java.util.ArrayList;
 

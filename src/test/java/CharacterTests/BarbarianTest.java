@@ -1,10 +1,10 @@
 package CharacterTests;
 
-import gameobjects.Characters.Warriors.Barbarian;
-import gameobjects.Characters.Warriors.Dwarf;
-import gameobjects.Characters.Warriors.Weapon;
-import gameobjects.Characters.Warriors.WeaponType;
-import gameobjects.Rooms.Room;
+import oldobjects.Characters.Warriors.Barbarian;
+import oldobjects.Characters.Warriors.Dwarf;
+import oldobjects.Characters.Warriors.Weapon;
+import oldobjects.Characters.Warriors.WeaponType;
+import oldobjects.Rooms.Room;
 import org.junit.Before;
 import org.junit.Test;
 
