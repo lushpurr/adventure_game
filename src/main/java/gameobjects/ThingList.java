@@ -14,7 +14,7 @@ public class ThingList extends ArrayList<Thing> {
         }
         return s;
     }
-    
+
     public Thing thisOb(String name){
         Thing thing = null;
         String thingName = "";
