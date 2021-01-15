@@ -3,6 +3,7 @@ package game;
 import gameobjects.Thing;
 import gameobjects.ThingList;
 import gameobjects.actors.Actor;
+import gameobjects.actors.Enemy;
 import gameobjects.objects.Treasure;
 import gameobjects.rooms.Room;
 import globals.Direction;
@@ -17,9 +18,9 @@ public class Game {
     private Actor player;  // the player - provides 'first person perspective'
 
     private List<String> commands = new ArrayList<>(Arrays.asList(
-            "take", "drop", "look", "l", "i", "inventory",
-            "n", "s", "w", "e",
-            "save", "load"));
+            "take", "drop", "look", "l", "i", "inventory", "fight",
+            "n", "s", "w", "e"
+             ));
     private List<String> objects = new ArrayList<>(Arrays.asList("carrot", "sausage",
             "paper", "pencil", "ring", "wombat"));
 
@@ -27,27 +28,31 @@ public class Game {
         this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Room
         // --- construct a new adventure ---
 
-        ThingList trollRoomList = new ThingList();
-        trollRoomList.add(new Treasure("carrot", "It is a very crunchy carrot", 1));
+        ThingList coolRoomList = new ThingList();
+        coolRoomList.add(new Treasure("shades", "A pair of stunning designer shades", 5));
+        coolRoomList.add(new Treasure("ripped jeans", "Some stylishly ripped jeans with studs near the pockets", 4));
 
-        ThingList caveList = new ThingList();
-        caveList.add(new Treasure("paper", "Someone has written a message on the scrap of paper using a blunt pencil. It says 'This space is intentionally left blank'", 1));
-        caveList.add(new Treasure("pencil", "This pencil is so blunt that it can no longer be used to write.", 1));
+        ThingList hutList = new ThingList();
+        hutList.add(new Treasure("key", "a small key, how interesting", 10));
+        ThingList warlockList = new ThingList();
+        hutList.add(new Enemy("Graham the warlock", "a fearsome warlock", warlockList, 10, 3 ));
 
-        ThingList dungeonList = new ThingList();
-        dungeonList.add(new Treasure("ring", "It is a ring of great power.", 500));
-        dungeonList.add(new Treasure("wombat", "It's a cuddly little wombat. It is squeaking gently to itself.", 700));
+        ThingList forestList = new ThingList();
+        forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", 3));
+
 
         ThingList playerlist = new ThingList();
         // Add Rooms to the map
         //                 Room( name,   description,                             N,        S,      W,      E )
-        map.add(new Room("Troll Room", "A dank room that smells of troll", Direction.NOEXIT, 2, Direction.NOEXIT, 1, trollRoomList));
-        map.add(new Room("Forest", "A leafy woodland", Direction.NOEXIT, Direction.NOEXIT, 0, Direction.NOEXIT, new ThingList()));
-        map.add(new Room("Cave", "A dismal cave with walls covered in luminous moss", 0, Direction.NOEXIT, Direction.NOEXIT, 3, caveList));
-        map.add(new Room("Dungeon", "A nasty, dark cell", Direction.NOEXIT, Direction.NOEXIT, 2, Direction.NOEXIT, dungeonList));
+        map.add(new Room("Forest", "A deep dark forest, there is an owl tit twooing somewhere", 1, 2, Direction.NOEXIT, Direction.NOEXIT, forestList));
+        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, warlockList);
+        //add 'circle room' here
+        //add 'start room' here
+        map.add(new Room("Coolest Place Ever", "A glorious assortment of really, really cool things litter the room", Direction.NOEXIT, Direction.NOEXIT, Direction.NOEXIT, 1, coolRoomList));
+
 
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
-        player = new Actor("player", "a loveable game-player", playerlist, map.get(0));
+        player = new Actor("player", "a loveable game-player", playerlist, map.get(0), 20);
     }
 
     // access methods
