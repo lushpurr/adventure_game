@@ -90,6 +90,10 @@ public class Game {
         tolist.add(t);
     }
 
+    private void removeObFromList(Thing t, ThingList list){
+        list.remove(t);
+    }
+
     private String takeOb(String obname) {
         String retStr = "";
         Thing t = player.getLocation().getThings().thisOb(obname);
@@ -129,14 +133,33 @@ public class Game {
         }else {
             Enemy enemy = returnEnemyFromList(obname);
             if (enemy.isFightable()){
+                if (isAnyoneDefeated(player, enemy) == "no"){
                 player.reduceHp(enemy.getAttackPoints());
                 enemy.reduceHp(player.getFightPoints());
                 retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n"
                         + "You hit " + enemy.getName() + " and they lose " + player.getFightPoints() + "health points. \n"
                         + enemy.getName() + " hits you and you lose " + enemy.getAttackPoints() + " health points. \n";
+                }
+                else if (isAnyoneDefeated(player, enemy) == "player"){
+                    //enemy is removed from room
+                    removeObFromList(enemyName, player.getLocation().getThings());
+                    retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n" +
+                            "You defeat them with one blow!";
+                    //add in method to get dead enemy's treasure
+                }
+                else{
+
+                    retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n" +
+                            "You are defeated. You die.";
+                    //add end game scenario here
+                }
 
             }
+            else{
+                retStr = "You can't fight" + enemy.getName() + "!";
+            }
         }
+        return retStr;
     }
 
     private String isAnyoneDefeated(Actor player, Enemy enemy){
