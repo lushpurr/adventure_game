@@ -29,16 +29,16 @@ public class Game {
         // --- construct a new adventure ---
 
         ThingList coolRoomList = new ThingList();
-        coolRoomList.add(new Treasure("shades", "A pair of stunning designer shades", 5));
-        coolRoomList.add(new Treasure("ripped jeans", "Some stylishly ripped jeans with studs near the pockets", 4));
+        coolRoomList.add(new Treasure("shades", "A pair of stunning designer shades", true, false, false, false, 5));
+        coolRoomList.add(new Treasure("ripped jeans", "Some stylishly ripped jeans with studs near the pockets", true, false, false, false, 4));
 
         ThingList hutList = new ThingList();
-        hutList.add(new Treasure("key", "a small key, how interesting", 10));
+        hutList.add(new Treasure("key", "a small key, how interesting", true, false, false , false,10));
         ThingList warlockList = new ThingList();
-        hutList.add(new Enemy("Graham the warlock", "a fearsome warlock", warlockList, 10, 3 ));
+        hutList.add(new Enemy("Graham the warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 ));
 
         ThingList forestList = new ThingList();
-        forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", 3));
+        forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", true, false, false, true, 3));
 
 
         ThingList playerlist = new ThingList();

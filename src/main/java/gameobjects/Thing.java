@@ -17,6 +17,16 @@ public class Thing {
         this.drinkable = canDrink;
     }
 
+    //below constructor can be used for Room objects for example
+    public Thing(String name, String description){
+        this.name = name;
+        this.description = description;
+        this.takeable = false;
+        this.fightable = false;
+        this.eatable = false;
+        this.drinkable = false;
+    }
+
     public String getName() {
         return name;
     }

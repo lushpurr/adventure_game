@@ -8,8 +8,8 @@ public class Enemy extends ThingHolder {
     private int hp;
     private int attackPoints;
 
-    public Enemy(String name, String description, ThingList tl, int hp, int attackPoints){
-        super(name, description, tl);
+    public Enemy(String name, String description, boolean canTake, boolean canFight, boolean canEat, boolean canDrink, ThingList tl, int hp, int attackPoints){
+        super(name, description, canTake, canFight, canEat, canDrink, tl);
         this.hp = hp;
         this.attackPoints = attackPoints;
     }
