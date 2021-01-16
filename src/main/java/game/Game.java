@@ -55,7 +55,7 @@ public class Game {
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
 
         //WE WOULD NEED TO CHANGE THE INDEX HERE
-        player = new Actor("player", "a loveable game-player", playerlist, map.get(0), 20);
+        player = new Actor("player", "a loveable game-player", playerlist, map.get(0), 20, 3);
     }
 
     // access methods
@@ -110,6 +110,20 @@ public class Game {
             retStr = obname + " dropped!";
         }
         return retStr;
+    }
+
+    private String fightEnemy(String obname) {
+        String retStr = "";
+        Thing enemy = player.getLocation().getThings().thisOb(obname);
+        if (obname.equals("")){
+            retStr = "You'll have to tell me who you want to fight!";
+        } else if (enemy == null){
+            retStr = "That enemy isn't here!";
+        }else {
+            if (enemy.isFightable()){
+
+            }
+        }
     }
 
     // move a Person (typically the player) to a Room
@@ -247,6 +261,8 @@ public class Game {
                 case "drop":
                     msg = dropOb(noun);
                     break;
+                case "fight":
+                    msg = fightEnemy(noun);
                 default:
                     msg += " (not yet implemented)";
                     break;

@@ -42,4 +42,21 @@ public class Thing {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public boolean isTakeable() {
+        return takeable;
+    }
+
+    public boolean isFightable() {
+        return fightable;
+    }
+
+    public boolean isEatable() {
+        return eatable;
+    }
+
+    public boolean isDrinkable() {
+        return drinkable;
+    }
+
 }
