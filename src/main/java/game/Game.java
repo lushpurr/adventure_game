@@ -23,7 +23,7 @@ public class Game {
             "n", "s", "w", "e"
              ));
     private List<String> objects = new ArrayList<>(Arrays.asList("shades", "ripped jeans",
-            "key", "strange bubbling potion", "warlock"));
+            "key", "book", "sword", "pop tart","strange bubbling potion", "warlock", "goblin"));
 
     public Game() {
         this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Rooms
@@ -53,7 +53,7 @@ public class Game {
         circleRoomList.add(new Treasure("book", "the book is titled \"How To Be Cool\".This could be useful", true, false, false, false , 5));
 
         ThingList startRoomList = new ThingList();
-        startRoomList.add(new Treasure("rusty sword", "the sword has seen better days but it's still sharp", true, false, false, false, 6));
+        startRoomList.add(new Treasure("sword", "the sword is very rusty but it still looks sharp", true, false, false, false, 6));
         // Still to implement method kill the goblin set canTake to true
         startRoomList.add(new Treasure("pop tart", "the pop tart is still warm and smells delicious but it's being guarded by a rather evil looking goblin.", false, false, true, false, 3));
         startRoomList.add(banjoTheGoblin);
