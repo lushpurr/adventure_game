@@ -23,7 +23,7 @@ public class Game {
             "n", "s", "w", "e"
              ));
     private List<String> objects = new ArrayList<>(Arrays.asList("shades", "ripped jeans",
-            "key", "strange bubbling potion"));
+            "key", "strange bubbling potion", "warlock"));
 
     public Game() {
         this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Rooms
@@ -31,7 +31,10 @@ public class Game {
 
         //-- create Enemies -- //
         ThingList warlockList = new ThingList();
-        Enemy grahamTheWarlock = new Enemy("Graham the warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 )
+        Enemy grahamTheWarlock = new Enemy("warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 );
+
+        //add enemies to list //
+        addEnemyToList(grahamTheWarlock);
 
         // --- construct a new adventure ---
 
@@ -53,7 +56,7 @@ public class Game {
         //                 Room( name,   description,                             N,        S,      W,      E )
 
         map.add(new Room("Forest", "A deep dark forest, there is an owl tit twooing somewhere", 1, 2, Direction.NOEXIT, Direction.NOEXIT, forestList));
-        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, warlockList));
+        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, hutList));
         //add 'circle room' here
         //add 'start room' here
         map.add(new Room("Coolest Place Ever", "A glorious assortment of really, really cool things litter the room", Direction.NOEXIT, Direction.NOEXIT, Direction.NOEXIT, 1, coolRoomList));
@@ -62,7 +65,7 @@ public class Game {
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
 
         //WE WOULD NEED TO CHANGE THE INDEX HERE
-        player = new Actor("player", "a loveable game-player", playerlist, map.get(0), 20, 3);
+        player = new Actor("player", "a loveable game-player", playerlist, map.get(1), 20, 3);
     }
 
     // access methods
@@ -130,17 +133,20 @@ public class Game {
             retStr = "You'll have to tell me who you want to fight!";
         } else if (enemyName == null){
             retStr = "That enemy isn't here!";
-        }else {
+        }
+        else {
+            retStr ="nice!";
             Enemy enemy = returnEnemyFromList(obname);
             if (enemy.isFightable()){
-                if (isAnyoneDefeated(player, enemy) == "no"){
+                if (isAnyoneDefeated(player, enemy).equals("no")){
                 player.reduceHp(enemy.getAttackPoints());
                 enemy.reduceHp(player.getFightPoints());
                 retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n"
-                        + "You hit " + enemy.getName() + " and they lose " + player.getFightPoints() + "health points. \n"
-                        + enemy.getName() + " hits you and you lose " + enemy.getAttackPoints() + " health points. \n";
+                        + "You hit " + enemy.getName() + " and they lose " + player.getFightPoints() + " health points. \n"
+                        + enemy.getName() + " hits you and you lose " + enemy.getAttackPoints() + " health points. \n"
+                        + "Your HP: " + player.getHp() + " " + enemy.getName() + " HP: " + enemy.getHp();
                 }
-                else if (isAnyoneDefeated(player, enemy) == "player"){
+                else if (isAnyoneDefeated(player, enemy).equals("player")){
                     //enemy is removed from room
                     removeObFromList(enemyName, player.getLocation().getThings());
                     retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n" +
@@ -174,7 +180,11 @@ public class Game {
         }
     }
 
-    private Enemy returnEnemyFromList(String obname) {
+    public void addEnemyToList(Enemy enemy){
+        this.enemies.add(enemy);
+    }
+
+    public Enemy returnEnemyFromList(String obname) {
         Enemy enemy = null;
         String thingName = "";
         String enemyNameLowCase = obname.trim().toLowerCase();
@@ -325,6 +335,7 @@ public class Game {
                     break;
                 case "fight":
                     msg = fightEnemy(noun);
+                    break;
                 default:
                     msg += " (not yet implemented)";
                     break;
