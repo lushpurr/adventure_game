@@ -31,10 +31,12 @@ public class Game {
 
         //-- create Enemies -- //
         ThingList warlockList = new ThingList();
+        ThingList goblinList = new ThingList();
         Enemy grahamTheWarlock = new Enemy("warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 );
-
+        Enemy banjoTheGoblin = new Enemy("goblin", "a mean looking goblin guarding the pop tart", false, true, false, false, goblinList, 2, 2);
         //add enemies to list //
         addEnemyToList(grahamTheWarlock);
+        addEnemyToList(banjoTheGoblin);
 
         // --- construct a new adventure ---
 
@@ -51,8 +53,10 @@ public class Game {
         circleRoomList.add(new Treasure("book", "the book is titled \"How To Be Cool\".This could be useful", true, false, false, false , 5));
 
         ThingList startRoomList = new ThingList();
-        startRoomList.add(new Treasure("a rusty sword", "the sword has seen better days but it's still sharp", true, false, false, false, 6));
-
+        startRoomList.add(new Treasure("rusty sword", "the sword has seen better days but it's still sharp", true, false, false, false, 6));
+        // Still to implement method kill the goblin set canTake to true
+        startRoomList.add(new Treasure("pop tart", "the pop tart is still warm and smells delicious but it's being guarded by a rather evil looking goblin.", false, false, true, false, 3));
+        startRoomList.add(banjoTheGoblin);
 
         ThingList forestList = new ThingList();
         forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", true, false, false, true, 3));
@@ -61,7 +65,6 @@ public class Game {
         ThingList playerlist = new ThingList();
         // Add Rooms to the map
         //                 Room( name,   description,                             N,        S,      W,      E )
-
 
         map.add(new Room("Forest", "A deep dark forest, there is an owl tit twooing somewhere", 1, 2, Direction.NOEXIT, Direction.NOEXIT, forestList));
         map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, hutList));
@@ -74,7 +77,7 @@ public class Game {
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
 
         //WE WOULD NEED TO CHANGE THE INDEX HERE
-        player = new Actor("player", "a loveable game-player", playerlist, map.get(1), 20, 3);
+        player = new Actor("player", "a loveable game-player", playerlist, map.get(3), 20, 3);
     }
 
     // access methods
