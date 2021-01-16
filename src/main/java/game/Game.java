@@ -139,6 +139,18 @@ public class Game {
         }
     }
 
+    private String isAnyoneDefeated(Actor player, Enemy enemy){
+        if (player.getFightPoints() >= enemy.getHp()){
+            return "player";
+        }
+        else if (enemy.getAttackPoints() >= player.getHp()){
+            return "enemy";
+        }
+        else {
+            return "no";
+        }
+    }
+
     private Enemy returnEnemyFromList(String obname) {
         Enemy enemy = null;
         String thingName = "";
