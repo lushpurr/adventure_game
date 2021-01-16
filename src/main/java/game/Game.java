@@ -41,8 +41,8 @@ public class Game {
         ThingList playerlist = new ThingList();
         // Add Rooms to the map
         //                 Room( name,   description,                             N,        S,      W,      E )
-        map.add(new Room("Troll Room", "A dank room that smells of troll", Direction.NOEXIT, 2, Direction.NOEXIT, 1, trollRoomList));
-        map.add(new Room("Forest", "A leafy woodland", Direction.NOEXIT, Direction.NOEXIT, 0, Direction.NOEXIT, new ThingList()));
+        map.add(new Room("street outside of the hero party", "There's only the bouncer around. Everyone else is inside.", Direction.NOEXIT, 2, Direction.NOEXIT, 1, trollRoomList));
+        map.add(new Room("hallway", "A dimly lit entrance.", Direction.NOEXIT, Direction.NOEXIT, 0, Direction.NOEXIT, new ThingList()));
         map.add(new Room("Cave", "A dismal cave with walls covered in luminous moss", 0, Direction.NOEXIT, Direction.NOEXIT, 3, caveList));
         map.add(new Room("Dungeon", "A nasty, dark cell", Direction.NOEXIT, Direction.NOEXIT, 2, Direction.NOEXIT, dungeonList));
 
@@ -272,8 +272,8 @@ public class Game {
 
     public void showIntro() {
         String s;
-        s = "You have fallen down a rabbit hole and arrived in\n"
-                + "an underground cavern that smells strongly of troll.\n"
+        s = "You have just arrived at the entrance to the hero party but the bouncer won't let you in!\n"
+                + "You've gotta get yourself looking the part!.\n"
                 + "Where do you want to go? [Enter n, s, w or e]?\n"
                 + "(or enter q to quit)";
         showStr(s);
