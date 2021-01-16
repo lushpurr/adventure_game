@@ -1,5 +1,7 @@
 package gameobjects;
 
+import gameobjects.actors.Enemy;
+
 import java.util.ArrayList;
 
 public class ThingList extends ArrayList<Thing> {
@@ -28,4 +30,5 @@ public class ThingList extends ArrayList<Thing> {
         }
         return thing;
     }
+
 }

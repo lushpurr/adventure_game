@@ -3,6 +3,7 @@ package game;
 import gameobjects.Thing;
 import gameobjects.ThingList;
 import gameobjects.actors.Actor;
+import gameobjects.actors.Enemy;
 import gameobjects.objects.Treasure;
 import gameobjects.rooms.Room;
 import globals.Direction;
@@ -14,40 +15,66 @@ import java.util.List;
 public class Game {
 
     private ArrayList<Room> map; // the map - an ArrayList of Rooms
+    private ArrayList<Enemy> enemies;
     private Actor player;  // the player - provides 'first person perspective'
 
     private List<String> commands = new ArrayList<>(Arrays.asList(
-            "take", "drop", "look", "l", "i", "inventory",
-            "n", "s", "w", "e",
-            "save", "load"));
-    private List<String> objects = new ArrayList<>(Arrays.asList("carrot", "sausage",
-            "paper", "pencil", "ring", "wombat"));
+            "take", "drop", "look", "l", "i", "inventory", "fight",
+            "n", "s", "w", "e"
+             ));
+    private List<String> objects = new ArrayList<>(Arrays.asList("shades", "ripped jeans",
+            "key", "strange bubbling potion", "warlock"));
 
     public Game() {
-        this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Room
+        this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Rooms
+        this.enemies = new ArrayList<Enemy>();
+
+        //-- create Enemies -- //
+        ThingList warlockList = new ThingList();
+        Enemy grahamTheWarlock = new Enemy("warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 );
+
+        //add enemies to list //
+        addEnemyToList(grahamTheWarlock);
+
         // --- construct a new adventure ---
 
-        ThingList trollRoomList = new ThingList();
-        trollRoomList.add(new Treasure("carrot", "It is a very crunchy carrot", 1));
 
-        ThingList caveList = new ThingList();
-        caveList.add(new Treasure("paper", "Someone has written a message on the scrap of paper using a blunt pencil. It says 'This space is intentionally left blank'", 1));
-        caveList.add(new Treasure("pencil", "This pencil is so blunt that it can no longer be used to write.", 1));
+        ThingList coolRoomList = new ThingList();
+        coolRoomList.add(new Treasure("shades", "A pair of stunning designer shades", true, false, false, false, 5));
+        coolRoomList.add(new Treasure("ripped jeans", "Some stylishly ripped jeans with studs near the pockets", true, false, false, false, 4));
 
-        ThingList dungeonList = new ThingList();
-        dungeonList.add(new Treasure("ring", "It is a ring of great power.", 500));
-        dungeonList.add(new Treasure("wombat", "It's a cuddly little wombat. It is squeaking gently to itself.", 700));
+        ThingList hutList = new ThingList();
+        hutList.add(new Treasure("key", "a small key, how interesting", true, false, false , false,10));
+        hutList.add(grahamTheWarlock);
+
+        ThingList circleRoomList = new ThingList();
+        circleRoomList.add(new Treasure("book", "the book is titled \"How To Be Cool\".This could be useful", true, false, false, false , 5));
+
+        ThingList startRoomList = new ThingList();
+        startRoomList.add(new Treasure("a rusty sword", "the sword has seen better days but it's still sharp", true, false, false, false, 6));
+
+
+        ThingList forestList = new ThingList();
+        forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", true, false, false, true, 3));
+
 
         ThingList playerlist = new ThingList();
         // Add Rooms to the map
         //                 Room( name,   description,                             N,        S,      W,      E )
-        map.add(new Room("street outside of the hero party", "There's only the bouncer around. Everyone else is inside.", Direction.NOEXIT, 2, Direction.NOEXIT, 1, trollRoomList));
-        map.add(new Room("hallway", "A dimly lit entrance.", Direction.NOEXIT, Direction.NOEXIT, 0, Direction.NOEXIT, new ThingList()));
-        map.add(new Room("Cave", "A dismal cave with walls covered in luminous moss", 0, Direction.NOEXIT, Direction.NOEXIT, 3, caveList));
-        map.add(new Room("Dungeon", "A nasty, dark cell", Direction.NOEXIT, Direction.NOEXIT, 2, Direction.NOEXIT, dungeonList));
+
+
+        map.add(new Room("Forest", "A deep dark forest, there is an owl tit twooing somewhere", 1, 2, Direction.NOEXIT, Direction.NOEXIT, forestList));
+        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, hutList));
+        map.add(new Room("Circle room", "A strange room with no corners.", 0, Direction.NOEXIT, Direction.NOEXIT,3, circleRoomList));
+        map.add(new Room("Street outside of the hero party", "There's only the bouncer near around. Everyone else is inside.", Direction.NOEXIT, Direction.NOEXIT, 2, Direction.NOEXIT, startRoomList));
+        map.add(new Room("Coolest Place Ever", "A glorious assortment of really, really cool things litter the room", Direction.NOEXIT, Direction.NOEXIT, Direction.NOEXIT, 1, coolRoomList));
+
+
 
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
-        player = new Actor("player", "a loveable game-player", playerlist, map.get(0));
+
+        //WE WOULD NEED TO CHANGE THE INDEX HERE
+        player = new Actor("player", "a loveable game-player", playerlist, map.get(1), 20, 3);
     }
 
     // access methods
@@ -73,6 +100,10 @@ public class Game {
     private void transferOb(Thing t, ThingList fromlist, ThingList tolist) {
         fromlist.remove(t);
         tolist.add(t);
+    }
+
+    private void removeObFromList(Thing t, ThingList list){
+        list.remove(t);
     }
 
     private String takeOb(String obname) {
@@ -102,6 +133,78 @@ public class Game {
             retStr = obname + " dropped!";
         }
         return retStr;
+    }
+
+    private String fightEnemy(String obname) {
+        String retStr = "";
+        Thing enemyName = player.getLocation().getThings().thisOb(obname);
+        if (obname.equals("")){
+            retStr = "You'll have to tell me who you want to fight!";
+        } else if (enemyName == null){
+            retStr = "That enemy isn't here!";
+        }
+        else {
+            retStr ="nice!";
+            Enemy enemy = returnEnemyFromList(obname);
+            if (enemy.isFightable()){
+                if (isAnyoneDefeated(player, enemy).equals("no")){
+                player.reduceHp(enemy.getAttackPoints());
+                enemy.reduceHp(player.getFightPoints());
+                retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n"
+                        + "You hit " + enemy.getName() + " and they lose " + player.getFightPoints() + " health points. \n"
+                        + enemy.getName() + " hits you and you lose " + enemy.getAttackPoints() + " health points. \n"
+                        + "Your HP: " + player.getHp() + " " + enemy.getName() + " HP: " + enemy.getHp();
+                }
+                else if (isAnyoneDefeated(player, enemy).equals("player")){
+                    //enemy is removed from room
+                    removeObFromList(enemyName, player.getLocation().getThings());
+                    retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n" +
+                            "You defeat them with one blow!";
+                    //add in method to get dead enemy's treasure
+                }
+                else{
+
+                    retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n" +
+                            "You are defeated. You die.";
+                    //add end game scenario here
+                }
+
+            }
+            else{
+                retStr = "You can't fight" + enemy.getName() + "!";
+            }
+        }
+        return retStr;
+    }
+
+    private String isAnyoneDefeated(Actor player, Enemy enemy){
+        if (player.getFightPoints() >= enemy.getHp()){
+            return "player";
+        }
+        else if (enemy.getAttackPoints() >= player.getHp()){
+            return "enemy";
+        }
+        else {
+            return "no";
+        }
+    }
+
+    public void addEnemyToList(Enemy enemy){
+        this.enemies.add(enemy);
+    }
+
+    public Enemy returnEnemyFromList(String obname) {
+        Enemy enemy = null;
+        String thingName = "";
+        String enemyNameLowCase = obname.trim().toLowerCase();
+
+        for(Enemy e : this.enemies) {
+            thingName = e.getName().trim().toLowerCase();
+            if(thingName.equals(enemyNameLowCase)){
+                enemy = e;
+            }
+        }
+        return enemy;
     }
 
     // move a Person (typically the player) to a Room
@@ -238,6 +341,9 @@ public class Game {
                     break;
                 case "drop":
                     msg = dropOb(noun);
+                    break;
+                case "fight":
+                    msg = fightEnemy(noun);
                     break;
                 default:
                     msg += " (not yet implemented)";
