@@ -3,10 +3,18 @@ package gameobjects;
 public class Thing {
     private String name;
     private String description;
+    private boolean takeable;
+    private boolean fightable;
+    private boolean eatable;
+    private boolean drinkable;
 
-    public Thing(String name, String description){
+    public Thing(String name, String description, boolean canTake, boolean canFight, boolean canEat, boolean canDrink){
         this.name = name;
         this.description = description;
+        this.takeable = canTake;
+        this.fightable = canFight;
+        this.eatable = canEat;
+        this.drinkable = canDrink;
     }
 
     public String getName() {

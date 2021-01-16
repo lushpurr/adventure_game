@@ -44,14 +44,17 @@ public class Game {
         ThingList playerlist = new ThingList();
         // Add Rooms to the map
         //                 Room( name,   description,                             N,        S,      W,      E )
+
         map.add(new Room("Forest", "A deep dark forest, there is an owl tit twooing somewhere", 1, 2, Direction.NOEXIT, Direction.NOEXIT, forestList));
-        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, warlockList);
+        map.add(new Room("Tiny hut", "A tiny hut", Direction.NOEXIT, 0, 4, Direction.NOEXIT, warlockList));
         //add 'circle room' here
         //add 'start room' here
         map.add(new Room("Coolest Place Ever", "A glorious assortment of really, really cool things litter the room", Direction.NOEXIT, Direction.NOEXIT, Direction.NOEXIT, 1, coolRoomList));
 
 
         // create player and place in Room 0 (i.e. the Room at 0 index of map)
+
+        //WE WOULD NEED TO CHANGE THE INDEX HERE
         player = new Actor("player", "a loveable game-player", playerlist, map.get(0), 20);
     }
 

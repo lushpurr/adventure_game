@@ -4,8 +4,8 @@ public class ThingHolder extends Thing {
 
     private ThingList things = new ThingList();
 
-    public ThingHolder(String name, String description, ThingList tl){
-        super(name, description);
+    public ThingHolder(String name, String description, boolean canTake, boolean canFight, boolean canEat, boolean canDrink, ThingList tl){
+        super(name, description, canTake, canFight, canEat, canDrink);
         things = tl;
     }
 
