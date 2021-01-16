@@ -15,6 +15,7 @@ import java.util.List;
 public class Game {
 
     private ArrayList<Room> map; // the map - an ArrayList of Rooms
+    private ArrayList<Enemy> enemies;
     private Actor player;  // the player - provides 'first person perspective'
 
     private List<String> commands = new ArrayList<>(Arrays.asList(
@@ -25,8 +26,15 @@ public class Game {
             "key", "strange bubbling potion"));
 
     public Game() {
-        this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Room
+        this.map = new ArrayList<Room>(); // TODO: Make map a Generic list of Rooms
+        this.enemies = new ArrayList<Enemy>();
+
+        //-- create Enemies -- //
+        ThingList warlockList = new ThingList();
+        Enemy grahamTheWarlock = new Enemy("Graham the warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 )
+
         // --- construct a new adventure ---
+
 
         ThingList coolRoomList = new ThingList();
         coolRoomList.add(new Treasure("shades", "A pair of stunning designer shades", true, false, false, false, 5));
@@ -34,8 +42,7 @@ public class Game {
 
         ThingList hutList = new ThingList();
         hutList.add(new Treasure("key", "a small key, how interesting", true, false, false , false,10));
-        ThingList warlockList = new ThingList();
-        hutList.add(new Enemy("Graham the warlock", "a fearsome warlock", false, true, false, false, warlockList,10, 3 ));
+        hutList.add(grahamTheWarlock);
 
         ThingList forestList = new ThingList();
         forestList.add(new Treasure("strange bubbling potion", "a potion bubbling in a glass in the bushes", true, false, false, true, 3));
@@ -114,16 +121,36 @@ public class Game {
 
     private String fightEnemy(String obname) {
         String retStr = "";
-        Thing enemy = player.getLocation().getThings().thisOb(obname);
+        Thing enemyName = player.getLocation().getThings().thisOb(obname);
         if (obname.equals("")){
             retStr = "You'll have to tell me who you want to fight!";
-        } else if (enemy == null){
+        } else if (enemyName == null){
             retStr = "That enemy isn't here!";
         }else {
+            Enemy enemy = returnEnemyFromList(obname);
             if (enemy.isFightable()){
+                player.reduceHp(enemy.getAttackPoints());
+                enemy.reduceHp(player.getFightPoints());
+                retStr = "You engage in a fierce battle with " + enemy.getName() + ".\n"
+                        + "You hit " + enemy.getName() + " and they lose " + player.getFightPoints() + "health points. \n"
+                        + enemy.getName() + " hits you and you lose " + enemy.getAttackPoints() + " health points. \n";
 
             }
         }
+    }
+
+    private Enemy returnEnemyFromList(String obname) {
+        Enemy enemy = null;
+        String thingName = "";
+        String enemyNameLowCase = obname.trim().toLowerCase();
+
+        for(Enemy e : this.enemies) {
+            thingName = e.getName().trim().toLowerCase();
+            if(thingName.equals(enemyNameLowCase)){
+                enemy = e;
+            }
+        }
+        return enemy;
     }
 
     // move a Person (typically the player) to a Room

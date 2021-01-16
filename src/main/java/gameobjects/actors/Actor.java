@@ -40,4 +40,12 @@ public class Actor extends ThingHolder {
     public void setHp(int hp) {
         this.hp = hp;
     }
+
+    public void reduceHp(int damage){
+        this.hp -= damage;
+    }
+
+    public int getFightPoints() {
+        return fightPoints;
+    }
 }

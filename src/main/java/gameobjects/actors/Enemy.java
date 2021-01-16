@@ -29,4 +29,8 @@ public class Enemy extends ThingHolder {
     public void setAttackPoints(int attackPoints) {
         this.attackPoints = attackPoints;
     }
+
+    public void reduceHp(int damage){
+        this.hp -= damage;
+    }
 }
