@@ -8,12 +8,19 @@ public class Actor extends ThingHolder {
     private Room location;// current room where the person is
     private int hp;
 
+    public Actor(String name, String description, ThingList tl, Room room, int hp){
+        super(name, description, tl);
+        this.location = room;
+        this.hp = hp;
+    }
+
     public Actor(String name, String description, boolean canTake, boolean canFight, boolean canEat, boolean canDrink, ThingList tl, Room room, int hp){
         super(name, description, canTake, canFight, canEat, canDrink, tl);
         this.location = room;
         this.hp = hp;
 
     }
+
 
     public Room getLocation() {
         return location;
